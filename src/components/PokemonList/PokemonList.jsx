@@ -94,13 +94,14 @@ function PokemonList(){
 
 
 // Correct code check what is wrong in above code , there is react infinite loop occurring
-import { useEffect, useState } from "react";
-import axios from 'axios';
+//import { useEffect, useState } from "react";   // no need now after using my custom hook
+//import axios from 'axios';              //// no need now after using my custom hook
 import "./PokemonList.css";
 import Pokemon from "../Pokemon/Pokemon";
+import usePokemonList from "../../hooks/usePokemonList";
 
 function PokemonList() {
-    /*
+    /*  & WE HAVE COMMENTED IT BECAUSE WE HAVE REMOVED STATE BY USING STATE OBJECT WHICH WILL HANDLE ALL THE STATE VARIABLE BY ONE OBJECT
     const [pokemonList, setPokemonList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -108,7 +109,9 @@ function PokemonList() {
 
     const [nextUrl, setNextUrl] = useState('');
     const [prevUrl, setPrevUrl] = useState('');   
-    */
+    & */
+    
+    /* ## NOW WE HAVE MAKE CUSTOM HOOK(usePokemonList) FOR THESE WORK WHICH I COMMENTED IT
 
     // To remove state var we use single object in which we store object variable as a state var (see below) here pokemonListState is a object and setPokemonListState is used to update some key of object
     const [pokemonListState, setPokemonListState] = useState({
@@ -163,6 +166,11 @@ function PokemonList() {
     useEffect(() => {
         downloadPokemons();
     }, [pokemonListState.pokedexUrl]);
+
+    ## */
+     
+    // taking use of custom hook(usePokemonList)
+    const {pokemonListState,setPokemonListState} = usePokemonList(false);         // you can use array as well then you have to return array from your custom hook
 
     return (
         <div className="pokemon-list-wrapper">
